@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/starter-template/starter-template.css">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block title %}
+    {% endblock %}
+</head>
+
+<body>
+
+    {% block project_info %}
+    {% endblock%}
+
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>
