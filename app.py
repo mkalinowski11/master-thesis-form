@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import os
-from flask_sqlalchemy import SQLAlchemy
+from models import db, Response
 
 VOICE_DATA = os.path.join('static', 'voice_data')
 app = Flask(__name__)
@@ -8,22 +8,9 @@ app.secret_key = 'abracadabra'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///form.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-
-class Response(db.Model):
-    __tablename__ = 'responses'
-    _id = db.Column(db.Integer, primary_key = True, autoincrement=True)
-    resp1 = db.Column(db.Integer)
-    resp2 = db.Column(db.Integer)
-    resp3 = db.Column(db.Integer)
-
-    def __init__(self, resp1, resp2, resp3):
-        self.resp1 = resp1
-        self.resp2 = resp2
-        self.resp3 = resp3
-
-    def __repr__(self):
-        return f'{self.resp1}, {self.resp2}, {self.resp3}'
+db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 def parse_answers(answers):
     if not any(map(lambda a : len(a) == 0, answers)):
@@ -53,7 +40,4 @@ def index():
         )
 
 if __name__ == "__main__":
-    if not os.path.isfile(app.config['SQLALCHEMY_DATABASE_URI']):
-        with app.app_context():
-            db.create_all()
     app.run(debug=True)
