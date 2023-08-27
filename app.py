@@ -9,8 +9,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///form.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
-with app.app_context():
-    db.create_all()
 
 def parse_answers(answers):
     if not any(map(lambda a : len(a) == 0, answers)):
@@ -45,4 +43,6 @@ def end_form():
     return render_template("info.html", title = "Dziękuję za wypełnienie formularza")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    with app.app_context():
+        db.create_all()
+    # app.run(debug=True)
