@@ -33,9 +33,7 @@ def index():
             "voice_form.html",
             title="Weryfikacja jakości konwersji głosu",
             speaker_data = os.listdir(VOICE_DATA),
-            samples = os.listdir(os.path.join(
-                VOICE_DATA, os.listdir(VOICE_DATA)[0]
-            ))
+            samples = ["1_source.wav", "2_target.wav", "3_source_target.wav", "4_target_source.wav"]
         )
 
 @app.route("/end-form")
@@ -45,4 +43,5 @@ def end_form():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
+    # Uncomment for localhost debug
     # app.run(debug=True)
