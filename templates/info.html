@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='voice_style.css') }}">
+    {% block title %}<title>Master thesis form</title>{% endblock %}
+</head>
+
+<body class="container">
+    <div class="form_area">
+        <div>
+            <h4 class="title">{{ title }}</h4>
+        </div>
+        {% block project_info %}
+        <div>
+            <p>
+            <h4 class="info">Twoja odpowiedź została zapisana do bazy danych.
+            </h4>
+            </p>
+        </div>
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

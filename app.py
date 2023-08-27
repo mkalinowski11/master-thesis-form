@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 import os
 from models import db, Response
 
@@ -30,6 +30,7 @@ def index():
             db.session.add(response)
             db.session.commit()
             print(f'Succesfully added data: {data}')
+            return redirect(url_for("end_form"))
     return render_template(
             "voice_form.html",
             title="Weryfikacja jakości konwersji głosu",
@@ -38,6 +39,10 @@ def index():
                 VOICE_DATA, os.listdir(VOICE_DATA)[0]
             ))
         )
+
+@app.route("/end-form")
+def end_form():
+    return render_template("info.html", title = "Dziękuję za wypełnienie formularza")
 
 if __name__ == "__main__":
     app.run(debug=True)
